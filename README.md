@@ -52,7 +52,7 @@ Insights Search provides a search interface for the IBM Insights for Twitter ser
   $ cf push
   ```
 
-And voila! You now have your very own instance of Insights Search running on Bluemix. Navigate to the application url, e.g. <application-host>.mybluemix.net and start querying Twitter.
+And voila! You now have your very own instance of Insights Search running on Bluemix. Navigate to the application url, e.g. `<application-host>.mybluemix.net` and start querying Twitter.
 
 ### Troubleshooting
 
