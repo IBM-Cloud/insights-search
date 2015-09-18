@@ -1,0 +1,33 @@
+{
+  "name": "insights-search",
+  "version": "0.0.1",
+  "description": "A search interface for IBM Insights for Twitter",
+  "scripts": {
+    "start": "node app.js",
+    "postinstall": "bower install --allow-root"
+  },
+  "dependencies": {
+    "bower": "~1.4.1",
+    "cfenv": "1.0.x",
+    "express": "4.12.x",
+    "request": "^2.60.0"
+  },
+  "engines": {
+    "node": "0.12.x"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/IBM-Bluemix/insights-search.git"
+  },
+  "author": "IBM Corp.",
+  "contributors": [
+    {
+      "name": "Frederic Lavigne",
+      "email": "frederic.lavigne@fr.ibm.com"
+    }
+  ],
+  "bugs": {
+    "url": "https://github.com/IBM-Bluemix/insights-search/issues"
+  },
+  "license": "Apache-2.0"
+}

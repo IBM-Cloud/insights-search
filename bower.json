@@ -1,0 +1,29 @@
+{
+  "name": "insights-search",
+  "version": "0.0.1",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "public/vendor",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "momentjs": "~2.10.6",
+    "jquery-extendext": "~0.1.1",
+    "jQuery-QueryBuilder": "~2.3.0",
+    "angular": "~1.4.4",
+    "bootstrap": "~3.3.5",
+    "bootstrap-datepicker": "~1.4.0",
+    "google-code-prettify": "~1.0.4",
+    "livestamp": "~1.1.2",
+    "angular-numeraljs": "~1.1.6",
+    "angular-spinners": "~2.1.8",
+    "angular-clipboard": "~1.0.1",
+    "angularjs-socialshare": "~0.1.11",
+    "jsurl": "Sage/jsurl",
+    "angular-ui-notification": "~0.0.14"
+  }
+}

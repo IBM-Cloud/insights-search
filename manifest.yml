@@ -1,0 +1,10 @@
+declared-services:
+  insights-search-twitter:
+    label: twitterinsights
+    plan: Free
+applications:
+- services:
+  - insights-search-twitter
+  name: insights-search
+  path: .
+  memory: 256M

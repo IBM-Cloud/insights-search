@@ -1,0 +1,178 @@
+html,
+body {
+  font-family: Helvetica, Roboto, 'Segoe UI', Calibri, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  position: relative;
+}
+
+/**
+ * Site header
+ */
+
+.header {
+  background-color: #55acee;
+  color: #ffffff;
+  height: 60px;
+}
+.navbar-brand {
+  color: #ffffff;
+  padding-top: 20px;
+}
+.navbar {
+  margin-bottom: 10px;
+}
+
+.navbar .nav>li>a:focus,
+.navbar .nav>li>a:hover {
+  text-decoration: none;
+  background-color: transparent !important;
+}
+.navbar-toggle .icon-bar {
+  background-color: #000;
+}
+
+/**
+ * Footer
+ */
+footer {
+  position: fixed;
+  bottom: 0px;
+  right: 0px;
+  color: #888;
+  text-align: right;
+  height: 30px;
+  line-height: 30px;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+/**
+ * Manages the scrolling of the 3 columns on desktop
+ */
+
+@media (min-width: 990px) {
+  body,
+  html {
+    height: 100%;
+    overflow: hidden;
+  }
+  .scrollable {
+    height: 100%;
+    overflow: auto;
+  }
+  .max-height {
+    height: 100%;
+  }
+  .no-overflow {
+    overflow: hidden;
+  }
+  .header-padding {
+    padding-bottom: 80px;
+  }
+}
+
+/**
+ * A tweet in the list
+ */
+
+.tweet-image {
+  width: 48px !important;
+  height: 48px !important;
+}
+.tweet-displayName {
+  font-weight: bold;
+}
+.tweet-handle {
+  font-size: 12px;
+}
+.tweet-postedTime {
+  font-size: 12px;
+}
+
+/**
+ * Tweet source code
+ */
+
+pre.prettyprint {
+  width: auto;
+  overflow: auto;
+  display: block;
+  overflow: auto;
+  width: auto;
+  white-space: pre;
+  word-wrap: normal;
+  padding: 10px;
+  margin-top: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+}
+
+/**
+ * Searching... animation
+ */
+
+.spinner {
+  width: 200px;
+  height: 200px;
+  position: absolute;
+  top: calc(50% - 100px);
+  left: calc(50% - 100px);
+}
+.double-bounce1,
+.double-bounce2 {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background-color: #55acee;
+  border: solid 3px #fff;
+  opacity: 0.6;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 10;
+  -webkit-animation: bounce 2.0s infinite ease-in-out;
+  animation: bounce 2.0s infinite ease-in-out;
+}
+.double-bounce2 {
+  -webkit-animation-delay: -1.0s;
+  animation-delay: -1.0s;
+}
+@-webkit-keyframes bounce {
+  0%,
+  100% {
+    -webkit-transform: scale(0.0)
+  }
+  50% {
+    -webkit-transform: scale(1.0)
+  }
+}
+@keyframes bounce {
+  0%,
+  100% {
+    transform: scale(0.0);
+    -webkit-transform: scale(0.0);
+  }
+  50% {
+    transform: scale(1.0);
+    -webkit-transform: scale(1.0);
+  }
+}
+.overlay {
+  opacity: .75;
+  background-color: #000;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  z-index: 5;
+}
+.please-wait {
+  text-align: center;
+  position: absolute;
+  top: calc(50% + 120px);
+  width: 100%;
+  color: #fff;
+  z-index: 10;
+}

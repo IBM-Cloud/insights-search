@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html ng-app="app" lang="en">
+
+<head>
+  <title>Search interface for IBM Insights for Twitter</title>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="google" content="notranslate" />
+
+  <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.1.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="vendor/bootstrap/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="vendor/jQuery-QueryBuilder/dist/css/query-builder.default.min.css">
+  <link rel="stylesheet" href="vendor/bootstrap-datepicker/dist/css/bootstrap-datepicker3.min.css">
+  <link rel="stylesheet" href="vendor/google-code-prettify/bin/prettify.min.css">
+  <link rel="stylesheet" href="vendor/angular-ui-notification/dist/angular-ui-notification.min.css">
+
+  <link rel="stylesheet" href="css/app.css">
+</head>
+
+<body ng-controller="SearchController as controller" ng-cloak>
+  <spinner name="spinner" usSpinner>
+    <div class="overlay"></div>
+    <div class="spinner">
+      <div class="double-bounce1"></div>
+      <div class="double-bounce2"></div>
+    </div>
+    <div class="please-wait">Searching...</div>
+  </spinner>
+
+  <header class="header navbar" id="top" role="banner">
+    <div>
+      <a href="../" class="navbar-brand">Insights Search</a>
+    </div>
+    <nav id="bs-navbar">
+      <ul class="nav navbar-nav">
+        <li>
+          <a href="https://bluemix.net/deploy?repository=https://github.com/IBM-Bluemix/insights-search.git" target="_blank"><img src="http://bluemix.net/deploy/button.png" alt="Bluemix button" /></a>
+        </li>
+      </ul>
+    </nav>
+  </header>
+
+  <div class="container-fluid max-height no-overflow">
+    <div class="row max-height">
+      <div class="col-md-4 scrollable">
+        <div class="header-padding">
+          <h3>Step 1 - Build a query</h3>
+          <div id="query-builder"></div>
+        </div>
+      </div>
+
+      <div class="col-md-4 scrollable">
+        <div class="header-padding">
+          <h3>Step 2 - Count or Search</h3>
+          <button type="button" class="btn btn-warning" ng-click="controller.search(true)">Twitter Count</button>
+          <button type="button" class="btn btn-info" ng-click="controller.search(false)">Twitter Search</button>
+          <h3>Step 3 - View results</h3>
+          <ul class="nav nav-pills" role="tablist">
+            <li class="active">
+              <a href="#tab-results" data-toggle="tab">
+                <b>{{controller.data.results.search.results | numeraljs:'0,0'}}</b> tweets</a>
+            </li>
+            <li><a href="#tab-results-raw" data-toggle="tab">Source</a></li>
+          </ul>
+          <div class="tab-content">
+            <div class="tab-pane active" id="tab-results">
+              <h5>This is the query string as it was sent to the Insights for Twitter service:</h5>
+              <div id="query-fulltext">
+                <div class="form-group">
+                  <input class="form-control" type="text" ng-model="controller.data.query" readonly>
+                </div>
+              </div>
+
+              <small ng-if="controller.data.results.tweets.length > 0">Note: this search interface only returns the first {{controller.data.results.tweets.length}} tweets.</small>
+              <ul class="list-group">
+                <a href="#tab-selected-tweet" class="list-group-item" ng-repeat="tweet in controller.data.results.tweets">
+                  <div class="media tweet" ng-click="controller.select(tweet)">
+                    <div class="media-left">
+                      <img class="tweet-image media-object" ng-src="{{tweet.message.actor.image}}" />
+                    </div>
+                    <div class="media-body">
+                      <div>
+                        <span class="tweet-displayName">{{tweet.message.actor.displayName}}</span>
+                        <span class="tweet-handle text-muted">@{{tweet.message.actor.preferredUsername}}</span>
+                        <i class="fa fa-{{tweet.cde.author.gender}}" ng-if="tweet.cde.author.gender != 'unknown'"></i>
+                        <i class="fa fa-diamond" ng-if="tweet.cde.author.maritalStatus.isMarried == 'true'"></i>
+                        <i class="fa fa-child" ng-if="tweet.cde.author.parenthood.isParent == 'true'"></i>
+                        <i class="fa fa-check-circle" ng-if="tweet.message.actor.verified"></i>
+                        <i class="fa fa-thumbs-up" ng-if="tweet.cde.content.sentiment.polarity == 'POSITIVE'"></i>
+                        <i class="fa fa-thumbs-down" ng-if="tweet.cde.content.sentiment.polarity == 'NEGATIVE'"></i>
+                        <span class="tweet-postedTime text-muted pull-right" data-livestamp="{{tweet.message.postedTime}}"></span>
+                      </div>
+                      <div class="tweet-body">{{tweet.message.body}}</div>
+                    </div>
+                  </div>
+                </a>
+              </ul>
+              
+            </div>
+            <div class="tab-pane" id="tab-results-raw">
+              <div>
+                <pre id="results-raw" class="prettyprint linenums lang-java"></pre>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4 scrollable">
+        <div class="header-padding">
+          <h3>Step 4 - View details of the selected tweet</h3>
+          <ul class="nav nav-pills" role="tablist">
+            <li class="active"><a name="tab-selected-tweet" href="#tab-selected-tweet" data-toggle="tab">Tweet</a></li>
+            <li><a href="#tab-selected-tweet-raw" data-toggle="tab">Source</a></li>
+          </ul>
+          <div class="tab-content">
+            <div class="tab-pane active" id="tab-selected-tweet">
+              <div id="selected-tweet"></div>
+
+              <div>
+                <h3>Step 5 - Review social enrichments</h3>
+
+                <form class="form-horizontal">
+                  <div class="form-group">
+                    <label class="col-sm-2 control-label">Sentiment</label>
+                    <div class="col-sm-10">
+                      <span class="form-control" disabled data-toggle="tooltip" data-placement="bottom" title="{{controller.data.selected.cde.content.sentiment.evidence}}">
+                        {{controller.data.selected.cde.content.sentiment.polarity}}
+                        <i class="fa fa-thumbs-up" ng-if="controller.data.selected.cde.content.sentiment.polarity == 'POSITIVE'"></i>
+                        <i class="fa fa-thumbs-down" ng-if="controller.data.selected.cde.content.sentiment.polarity == 'NEGATIVE'"></i>
+                      </span>
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label class="col-sm-2 control-label">Location</label>
+                    <div class="col-sm-10">
+                      <span class="form-control" disabled>
+                        {{controller.data.selected.cde.author.location.city}}
+                        {{controller.data.selected.cde.author.location.state}}
+                        {{controller.data.selected.cde.author.location.country}}
+                      </span>
+                    </div>
+                  </div>
+
+                  <div ng-if="controller.data.selected.cde.author.gender != 'unknown'">
+                    <div class="form-group">
+                      <label class="col-sm-2 control-label">Gender</label>
+                      <div class="col-sm-10">
+                        <span class="form-control" disabled>
+                          {{controller.data.selected.cde.author.gender}}
+                          <i class="fa fa-{{controller.data.selected.cde.author.gender}}"></i>
+                      </span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                      <div class="checkbox">
+                        <label>
+                          <input type="checkbox" ng-true-value="'true'" ng-false-value="'false'" disabled ng-model="controller.data.selected.cde.author.maritalStatus.isMarried"> Author is married
+                          <div class="form-group">
+                            <label class="col-sm-4 control-label">Evidence</label>
+                            <div class="col-sm-8">
+                              <input type="text" class="form-control" readonly ng-model="controller.data.selected.cde.author.maritalStatus.evidence">
+                            </div>
+                          </div>
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                      <div class="checkbox">
+                        <label>
+                          <input type="checkbox" ng-true-value="'true'" ng-false-value="'false'" disabled ng-model="controller.data.selected.cde.author.parenthood.isParent"> Author has children
+                          <div class="form-group">
+                            <label class="col-sm-4 control-label">Evidence</label>
+                            <div class="col-sm-8">
+                              <input type="text" class="form-control" readonly ng-model="controller.data.selected.cde.author.parenthood.evidence">
+                            </div>
+                          </div>
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+
+                </form>
+
+                <h3>Step 6 - Share this query</h3>
+                <h5>through social networks</h5>
+                <div>
+                  <button class="btn btn-default" socialshare socialshare socialshare-provider="twitter" socialshare-text="Search interface for #IBM #Insights for #Twitter" socialshare-url="{{controller.data.link_to_share}}">
+                    <i class="fa fa-twitter"></i> Twitter
+                  </button>
+
+                  <button class="btn btn-default" socialshare socialshare-provider="linkedin" socialshare-text="Search interface for IBM Insights for Twitter" socialshare-url="{{controller.data.link_to_share}}">
+                    <i class="fa fa-linkedin"></i> Linkedin
+                  </button>
+                </div>
+
+                <h5>or copy a link to this page</h5>
+                <form>
+                  <div class="form-group">
+                    <input type="text" class="form-control" ng-model="controller.data.link_to_share" readonly>
+                  </div>
+                  <input clipboard text="controller.data.link_to_share" type="button" class="btn btn-default" value="Copy">
+                </form>
+
+              </div>
+            </div>
+            <div class="tab-pane" id="tab-selected-tweet-raw">
+              <div>
+                <pre id="selected-tweet-raw" class="prettyprint linenums lang-java"></pre>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    made by <a href="http://twitter.com/l2fprod">fred</a> with <a href="http://ibm.com/bluemix">IBM Bluemix</a>
+  </footer>
+  
+  <script>
+    window.twttr = (function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0],
+        t = window.twttr || {};
+      if (d.getElementById(id)) return t;
+      js = d.createElement(s);
+      js.id = id;
+      js.src = "https://platform.twitter.com/widgets.js";
+      fjs.parentNode.insertBefore(js, fjs);
+
+      t._e = [];
+      t.ready = function(f) {
+        t._e.push(f);
+      };
+
+      return t;
+    }(document, "script", "twitter-wjs"));
+
+  </script>
+  <script src="vendor/angular/angular.min.js"></script>
+  <script src="vendor/jquery/dist/jquery.min.js"></script>
+  <script src="vendor/bootstrap/dist/js/bootstrap.min.js"></script>
+  <script src="vendor/jquery-extendext/jQuery.extendext.min.js"></script>
+  <script src="vendor/doT/doT.min.js"></script>
+  <script src="vendor/momentjs/min/moment-with-locales.min.js"></script>
+  <script src="vendor/livestamp/livestamp.min.js"></script>
+  <script src="vendor/jQuery-QueryBuilder/dist/js/query-builder.min.js"></script>
+  <script src="vendor/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+  <script src="vendor/google-code-prettify/bin/prettify.min.js"></script>
+  <script src="vendor/numeral/min/numeral.min.js"></script>
+  <script src="vendor/angular-numeraljs/dist/angular-numeraljs.min.js"></script>
+  <script src="vendor/angular-spinners/dist/angular-spinners.min.js"></script>
+  <script src="vendor/jsurl/lib/jsurl.js"></script>
+  <script src="vendor/angular-clipboard/angular-clipboard.js"></script>
+  <script src="vendor/angular-ui-notification/dist/angular-ui-notification.min.js"></script>
+  <script src="vendor/angularjs-socialshare/dist/angular-socialshare.min.js"></script>
+  <script>
+    ! function($) {
+      $(function() {
+        window.prettyPrint && prettyPrint()
+      })
+    }(window.jQuery)
+
+  </script>
+
+  <script src="js/app.js"></script>
+  <script src="js/search.service.js"></script>
+  <script src="js/search.controller.js"></script>
+</body>
+
+</html>
