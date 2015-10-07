@@ -1,4 +1,7 @@
 <!DOCTYPE html>
+<!--
+// Licensed under the Apache License. See footer for details.
+-->
 <html ng-app="app" lang="en">
 
 <head>
@@ -28,18 +31,24 @@
     <div class="please-wait">Searching...</div>
   </spinner>
 
-  <header class="header navbar" id="top" role="banner">
-    <div>
-      <a href="../" class="navbar-brand">Insights Search</a>
+  <nav class="navbar">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="#">Insights Search</a>
+      </div>
+      <div id="navbar" class="navbar-collapse collapse">
+        <form class="navbar-form navbar-right">
+          <a href="https://bluemix.net/deploy?repository=https://github.com/IBM-Bluemix/insights-search" target="_blank"><img src="http://bluemix.net/deploy/button.png" alt="Bluemix button" /></a>
+        </form>
+      </div>
     </div>
-    <nav id="bs-navbar">
-      <ul class="nav navbar-nav">
-        <li>
-          <a href="https://bluemix.net/deploy?repository=https://github.com/IBM-Bluemix/insights-search.git" target="_blank"><img src="http://bluemix.net/deploy/button.png" alt="Bluemix button" /></a>
-        </li>
-      </ul>
-    </nav>
-  </header>
+  </nav>
 
   <div class="container-fluid max-height no-overflow">
     <div class="row max-height">
@@ -96,7 +105,7 @@
                   </div>
                 </a>
               </ul>
-              
+
             </div>
             <div class="tab-pane" id="tab-results-raw">
               <div>
@@ -226,7 +235,7 @@
   <footer>
     made by <a href="http://twitter.com/l2fprod">fred</a> with <a href="http://ibm.com/bluemix">IBM Bluemix</a>
   </footer>
-  
+
   <script>
     window.twttr = (function(d, s, id) {
       var js, fjs = d.getElementsByTagName(s)[0],
@@ -278,3 +287,18 @@
 </body>
 
 </html>
+<!--
+//------------------------------------------------------------------------------
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//    http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+//------------------------------------------------------------------------------
+-->

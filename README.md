@@ -1,4 +1,4 @@
-# 'Insights Search' Overview
+# Insights Search Overview
 
 Insights Search provides a search interface for the IBM Insights for Twitter service.
 
@@ -20,7 +20,7 @@ Insights Search provides a search interface for the IBM Insights for Twitter ser
 
 4. cd into this newly created directory
 
-5. Edit the `manifest.yml` file and change the `<application-name>` and `<application-host>` to something unique.
+5. Edit the `manifest.yml` file and change the `<application-name>` and `<application-host>` from `insights-search` to something unique.
 
 	```
     applications:
@@ -78,8 +78,28 @@ To troubleshoot your Bluemix app the main useful source of information is the lo
    - [jQuery-QueryBuilder](https://github.com/mistic100/jQuery-QueryBuilder) MIT
    - [momentjs](http://momentjs.com) MIT
    - [Twitter oEmbed](https://dev.twitter.com/web/embedded-tweets/parameters)
-   
-Insights Search is a sample application created for the purpose of demonstrating the use of the Insights for Twitter service application. The program is provided as-is with no warranties of any kind, express or implied.
+
+## Privacy Notice
+This application includes code to track deployments to IBM Bluemix and other Cloud Foundry platforms.
+The following information is sent to a [Deployment Tracker](https://github.com/IBM-Bluemix/cf-deployment-tracker-service)
+service on each deployment:
+
+* Application Name (application_name)
+* Space ID (space_id)
+* Application Version (application_version)
+* Application URIs (application_uris)
+
+This data is collected from the VCAP_APPLICATION environment variable in IBM Bluemix and other Cloud Foundry platforms. This data is used by IBM to track metrics around deployments of sample applications to IBM Bluemix. Only deployments of sample applications that include code to ping the Deployment Tracker service will be tracked.
+
+### Disabling Deployment Tracking
+
+Deployment tracking can be disabled by removing `require("cf-deployment-tracker-client").track();` from the beginning of the `app.js` file.
+
+---
+
+Insights Search is a sample application created for the purpose of demonstrating the use of the Insights for Twitter service application.
+The program is provided as-is with no warranties of any kind, express or implied.
 
 [bluemix_signup_url]: https://console.ng.bluemix.net/?cm_mmc=GitHubReadMe-_-BluemixSampleApp-_-Node-_-Workflow
 [cloud_foundry_url]: https://github.com/cloudfoundry/cli
+

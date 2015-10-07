@@ -9,27 +9,17 @@ body {
 /**
  * Site header
  */
-
-.header {
-  background-color: #55acee;
-  color: #ffffff;
-  height: 60px;
-}
-.navbar-brand {
-  color: #ffffff;
-  padding-top: 20px;
-}
 .navbar {
-  margin-bottom: 10px;
+  background-color: #55acee !important;
+  border-radius: 0px;
 }
 
-.navbar .nav>li>a:focus,
-.navbar .nav>li>a:hover {
-  text-decoration: none;
-  background-color: transparent !important;
+.navbar .navbar-brand {
+  color: #FFF;
 }
+
 .navbar-toggle .icon-bar {
-  background-color: #000;
+  background: #FFF;
 }
 
 /**

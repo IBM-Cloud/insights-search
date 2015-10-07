@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "bower": "~1.4.1",
+    "cf-deployment-tracker-client": "*",
     "cfenv": "1.0.x",
     "express": "4.12.x",
     "request": "^2.60.0"
