@@ -5,6 +5,7 @@
   function SearchController($location, searchService, Notification) {
     var controller = this;
     controller.data = {
+      tracks: [],
       results: {
         search: {
           results: 0
@@ -13,6 +14,7 @@
       },
       selected: {},
       query: "",
+      trackToQueryFrom: "Decahose",
       link_to_share: ""
     };
 
@@ -50,7 +52,7 @@
       controller.data.selected = {};
 
       // call the service
-      searchService.search(queryString, countOnly).then(
+      searchService.search(queryString, countOnly, controller.data.trackToQueryFrom).then(
         function (data) {
           console.log("Found ", data);
 
@@ -98,6 +100,13 @@
     } else {
       queryBuilder.queryBuilder('setRules', defaultQuery);
     }
+
+    // retrieve existing tracks
+    searchService.getTracks().then(
+      function (data) {
+        console.log("Found tracks ", data);
+        controller.data.tracks = data.tracks;
+      });
   }
 })();
 

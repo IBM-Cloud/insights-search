@@ -46,6 +46,36 @@ app.get("/api/1/messages/search", function (req, res) {
   });
 });
 
+app.get("/api/1/tracks", function (req, res) {
+  console.log("Retrieving tracks");
+  twitter.getTracks(function (error, body) {
+    if (error) {
+      res.sendStatus(500);
+    }
+    res.send(body);
+  });
+});
+
+app.get("/api/1/tracks/:id/messages/count", function (req, res) {
+  console.log("Counting track", req.params.id, "with", req.query.q);
+  twitter.countTrack(req.params.id, req.query.q, function (error, body) {
+    if (error) {
+      res.sendStatus(500);
+    }
+    res.send(body);
+  });
+});
+
+app.get("/api/1/tracks/:id/messages/search", function (req, res) {
+  console.log("Searching track", req.params.id, "with", req.query.q);
+  twitter.searchTrack(req.params.id, req.query.q, 20, function (error, body) {
+    if (error) {
+      res.sendStatus(500);
+    }
+    res.send(body);
+  });
+});
+
 // serve the files out of ./public as our main files
 app.use(express.static(__dirname + '/public'));
 

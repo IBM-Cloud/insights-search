@@ -62,8 +62,20 @@
       <div class="col-md-4 scrollable">
         <div class="header-padding">
           <h3>Step 2 - Count or Search</h3>
+          <p>
+          <div ng-if="controller.data.tracks.length > 0">                      
+            <form>
+              <select class="form-control" ng-model="controller.data.trackToQueryFrom">
+                <option value="Decahose">Using the Decahose</option>
+                <option disabled>-- or using the PowerTrack --</option>
+                <option ng-repeat="track in controller.data.tracks" value="{{track.id}}">{{track.name}}</option>
+              </select>
+            </form>
+          </div>          
+          </p>
           <button type="button" class="btn btn-warning" ng-click="controller.search(true)">Twitter Count</button>
           <button type="button" class="btn btn-info" ng-click="controller.search(false)">Twitter Search</button>
+          
           <h3>Step 3 - View results</h3>
           <ul class="nav nav-pills" role="tablist">
             <li class="active">

@@ -15,12 +15,27 @@
       getData: function () {
         return data;
       },
-      search: function (queryString, countOnly) {
+      search: function (queryString, countOnly, trackToQueryFrom) {
         console.log("Query string:", queryString);
-
         var deferred = $q.defer();
+        
+        var prefix;
+        if (trackToQueryFrom == "Decahose" || trackToQueryFrom == null) {
+          prefix = "/api/1"
+        } else {
+          prefix = "/api/1/tracks/" + trackToQueryFrom
+        }
         var method = countOnly ? "count" : "search";
-        $http.get("/api/1/messages/" + method + "?q=" + encodeURIComponent(queryString)).success(function (data) {
+        $http.get(prefix + "/messages/" + method + "?q=" + encodeURIComponent(queryString)).success(function (data) {
+          deferred.resolve(data);
+        }).error(function () {
+          deferred.reject();
+        });
+        return deferred.promise;
+      },
+      getTracks: function () {
+        var deferred = $q.defer();
+        $http.get("/api/1/tracks").success(function (data) {
           deferred.resolve(data);
         }).error(function () {
           deferred.reject();
