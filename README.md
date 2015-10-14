@@ -2,7 +2,7 @@
 
 Insights Search provides a search interface for the IBM Insights for Twitter service.
 
-[![Deploy to Bluemix](https://bluemix.net/deploy/button.png)](https://bluemix.net/deploy)
+[![Deploy to Bluemix](https://bluemix.net/deploy/button.png)](https://bluemix.net/deploy?repository=https://github.com/IBM-Bluemix/insights-search)
 
 ## Running the app on Bluemix
 
