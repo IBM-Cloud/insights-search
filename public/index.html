@@ -56,6 +56,9 @@
         <div class="header-padding">
           <h3>Step 1 - Build a query</h3>
           <div id="query-builder"></div>
+        <div>
+          <a href="https://www.ng.bluemix.net/docs/services/Twitter/index.html#query_lang">Query language documentation</a>
+        </div>
         </div>
       </div>
 
@@ -104,6 +107,7 @@
                       <div>
                         <span class="tweet-displayName">{{tweet.message.actor.displayName}}</span>
                         <span class="tweet-handle text-muted">@{{tweet.message.actor.preferredUsername}}</span>
+                        <i class="fa fa-picture-o" ng-if="tweet.message.twitter_entities.media.length > 0"></i>
                         <i class="fa fa-{{tweet.cde.author.gender}}" ng-if="tweet.cde.author.gender != 'unknown'"></i>
                         <i class="fa fa-diamond" ng-if="tweet.cde.author.maritalStatus.isMarried == 'true'"></i>
                         <i class="fa fa-child" ng-if="tweet.cde.author.parenthood.isParent == 'true'"></i>
