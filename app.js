@@ -38,7 +38,7 @@ app.get("/api/1/messages/count", function (req, res) {
 app.get("/api/1/messages/search", function (req, res) {
   console.log("Searching with", req.query.q);
   // limit to the first 20 tweets
-  twitter.search(req.query.q, 20, function (error, body) {
+  twitter.search(req.query.q, 20, 0, function (error, body) {
     if (error) {
       res.sendStatus(500);
     }
@@ -68,7 +68,7 @@ app.get("/api/1/tracks/:id/messages/count", function (req, res) {
 
 app.get("/api/1/tracks/:id/messages/search", function (req, res) {
   console.log("Searching track", req.params.id, "with", req.query.q);
-  twitter.searchTrack(req.params.id, req.query.q, 20, function (error, body) {
+  twitter.searchTrack(req.params.id, req.query.q, 20, 0, function (error, body) {
     if (error) {
       res.sendStatus(500);
     }

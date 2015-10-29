@@ -1,3 +1,5 @@
 public/vendor
 node_modules
 vcap-local.json
+statistics*.csv
+statistics*.json
