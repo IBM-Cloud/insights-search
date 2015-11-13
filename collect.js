@@ -110,6 +110,33 @@ if (argv.extract) {
   extractSummary(current, end, argv.track, baseQuery, argv.unit, argv.size, argv.output);
 }
 
+var languages = {
+  'ar': "Arabic",
+  'zh': "Chinese",
+  'da': "Danish",
+  'dl': "Dutch",
+  'en': "English",
+  'fi': "Finnish",
+  'fr': "French",
+  'de': "German",
+  'el': "Greek",
+  'he': "Hebrew",
+  'id': "Indonesian",
+  'it': "Italian",
+  'ja': "Japanese",
+  'ko': "Korean",
+  'no': "Norwegian",
+  'fa': "Persian",
+  'pl': "Polish",
+  'pt': "Portuguese",
+  'ru': "Russian",
+  'es': "Spanish",
+  'sv': "Swedish",
+  'th': "Thai",
+  'tr': "Turkish",
+  'uk': "Ukrainian"
+};
+
 function extractTweets(track, baseQuery, output) {
   var fs = require('fs');
   INFO("Writing", output);
@@ -132,6 +159,8 @@ function extractTweets(track, baseQuery, output) {
     stream.write("Actor Type\t");
     stream.write("Actor Followers Count\t");
     stream.write("Retweet Count\t");
+    stream.write("Tweet Language\t");
+    stream.write("Tweet Language Code\t");
 
     // from CDE
     stream.write("Author Gender\t");
@@ -166,7 +195,7 @@ function _extractTweets(stream, track, query, size, from) {
         return;
       }
 
-      body.tweets.forEach(function (tweet, index) {
+      body.tweets.forEach(function (tweet, index) {        
         // from message
         stream.write(tweet.message.postedTime.replace("T", " ").replace("Z", " "));
         stream.write("\t");
@@ -198,6 +227,10 @@ function _extractTweets(stream, track, query, size, from) {
         stream.write("\t");
         stream.write(sanitize(tweet.message.retweetCount));
         stream.write("\t");
+        stream.write(sanitize(languages[tweet.message.twitter_lang]));
+        stream.write("\t");
+        stream.write(sanitize(tweet.message.twitter_lang));
+        stream.write("\t");
 
         // from CDE
         stream.write(sanitize(tweet.cde.author.gender));
@@ -206,11 +239,11 @@ function _extractTweets(stream, track, query, size, from) {
         stream.write("\t");
         stream.write(tweet.cde.author.parenthood ? sanitize(tweet.cde.author.parenthood.evidence) : "");
         stream.write("\t");
-        stream.write(sanitize(tweet.cde.author.location.country));
+        stream.write(sanitize(tweet.cde.author.location.country).toLowerCase());
         stream.write("\t");
-        stream.write(sanitize(tweet.cde.author.location.city));
+        stream.write(sanitize(tweet.cde.author.location.city).toLowerCase());
         stream.write("\t");
-        stream.write(sanitize(tweet.cde.author.location.state));
+        stream.write(sanitize(tweet.cde.author.location.state).toLowerCase());
         stream.write("\t");
         stream.write(tweet.cde.author.maritalStatus ? sanitize(tweet.cde.author.maritalStatus.isMarried) : "unknown");
         stream.write("\t");
