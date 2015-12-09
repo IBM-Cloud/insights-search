@@ -1,8 +1,10 @@
 # Insights Search Overview
 
+[![Build Status](https://travis-ci.org/IBM-Bluemix/insights-search.svg?branch=master)](https://travis-ci.org/IBM-Bluemix/insights-search)
+
 Insights Search provides a search interface for the IBM Insights for Twitter service.
 
-[![Deploy to Bluemix](https://bluemix.net/deploy/button.png)](https://bluemix.net/deploy?repository=https://github.com/IBM-Bluemix/insights-search)
+[![Deploy to Bluemix](https://deployment-tracker.mybluemix.net/stats/75cdc358cd463dae24f14ece5aa57886/button.svg)](https://bluemix.net/deploy?repository=https://github.com/IBM-Bluemix/insights-search.git)
 
 ## Running the app on Bluemix
 
