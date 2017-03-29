@@ -1,19 +1,19 @@
 # Insights Search Overview
 
+> :warning: **DEPRECATED** This sample used the [now retired Insights for Twitter](https://www.ibm.com/blogs/bluemix/2017/03/retirement-insights-twitter-service/) service. Source code is kept as reference only.
+
 [![Build Status](https://travis-ci.org/IBM-Bluemix/insights-search.svg?branch=master)](https://travis-ci.org/IBM-Bluemix/insights-search)
 
 Insights Search provides a search interface for the IBM Insights for Twitter service.
 
 ![Insights Search](screenshot.png)
 
-[![Deploy to Bluemix](https://deployment-tracker.mybluemix.net/stats/75cdc358cd463dae24f14ece5aa57886/button.svg)](https://bluemix.net/deploy?repository=https://github.com/IBM-Bluemix/insights-search.git)
-
 ## Running the app on Bluemix
 
 1. Create a Bluemix Account
 
     [Sign up][bluemix_signup_url] for Bluemix, or use an existing account.
-    
+
 2. Download and install the [Cloud-foundry CLI][cloud_foundry_url] tool
 
 3. Clone the app to your local environment from your terminal using the following command
@@ -106,4 +106,3 @@ The program is provided as-is with no warranties of any kind, express or implied
 
 [bluemix_signup_url]: https://console.ng.bluemix.net/?cm_mmc=GitHubReadMe-_-BluemixSampleApp-_-Node-_-Workflow
 [cloud_foundry_url]: https://github.com/cloudfoundry/cli
-
